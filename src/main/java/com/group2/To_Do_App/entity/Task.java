@@ -3,6 +3,7 @@ package com.group2.To_Do_App.entity;
 
 import com.group2.To_Do_App.emums.PriorityLevel;
 import com.group2.To_Do_App.emums.TaskStatus;
+import com.group2.To_Do_App.model.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -46,6 +47,8 @@ public class Task {
         this.status = status;
         this.userId = userId;
     }
+
+
 
 
     public Long getId() {
@@ -103,5 +106,9 @@ public class Task {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user", referencedColumnName = "id")
+    private User user;
 }
 
