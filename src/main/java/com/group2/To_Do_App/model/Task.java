@@ -5,10 +5,15 @@ import com.group2.To_Do_App.emums.PriorityLevel;
 import com.group2.To_Do_App.emums.TaskStatus;
 import com.group2.To_Do_App.model.User;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Data
+@Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tasks")
 public class Task {
 
@@ -36,74 +41,12 @@ public class Task {
     @Column(nullable = false)
     private Long userId;
 
-    public Task() {
-    }
-
     public Task(String title, String description, LocalDateTime deadline, PriorityLevel priority, TaskStatus status, Long userId) {
         this.title = title;
         this.description = description;
         this.deadline = deadline;
         this.priority = priority;
         this.status = status;
-        this.userId = userId;
-    }
-
-
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(LocalDateTime deadline) {
-        this.deadline = deadline;
-    }
-
-    public PriorityLevel getPriority() {
-        return priority;
-    }
-
-    public void setPriority(PriorityLevel priority) {
-        this.priority = priority;
-    }
-
-    public TaskStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(TaskStatus status) {
-        this.status = status;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
