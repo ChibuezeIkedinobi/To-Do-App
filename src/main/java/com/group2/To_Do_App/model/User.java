@@ -1,5 +1,6 @@
 package com.group2.To_Do_App.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.group2.To_Do_App.emums.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -52,6 +53,10 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Task> allTasks;
 
     @Override
     public String getUsername() {
