@@ -19,3 +19,27 @@ spring:
 
 server:
   port: 8082
+
+#------------------------please revert back to the configuration above before pushing--------------------
+
+#spring:
+#  application:
+#    name: demo-spring-boot-hibernate-jpa
+#
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/todoAPP
+#    username: root
+#    password: root
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#
+#  jpa:
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQLDialect
+#        format_sql: true
+#    hibernate:
+#      ddl-auto: create-drop
+#
+#server:
+#  port: 8082
