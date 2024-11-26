@@ -41,15 +41,6 @@ public class Task {
     @Column(nullable = false)
     private Long userId;
 
-    public Task(String title, String description, LocalDateTime deadline, PriorityLevel priority, TaskStatus status, Long userId) {
-        this.title = title;
-        this.description = description;
-        this.deadline = deadline;
-        this.priority = priority;
-        this.status = status;
-        this.userId = userId;
-    }
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "user", referencedColumnName = "id")
     private User user;
