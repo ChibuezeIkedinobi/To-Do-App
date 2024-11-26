@@ -5,7 +5,7 @@ public enum PriorityLevel {
 
         HIGH,
         MEDIUM,
-        LOW,
-        NONE
+        LOW
+
 
 }
