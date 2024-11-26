@@ -1,4 +1,4 @@
-package com.group2.To_Do_App.entity;
+package com.group2.To_Do_App.model;
 
 
 import com.group2.To_Do_App.emums.PriorityLevel;
