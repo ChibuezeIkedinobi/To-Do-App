@@ -2,9 +2,8 @@ package com.group2.To_Do_App.service;
 
 import com.group2.To_Do_App.dto.TaskRequestDto;
 import com.group2.To_Do_App.dto.TaskResponseDto;
-import com.group2.To_Do_App.emums.PriorityLevel;
-import com.group2.To_Do_App.emums.TaskStatus;
-import com.group2.To_Do_App.model.Task;
+import com.group2.To_Do_App.enums.PriorityLevel;
+import com.group2.To_Do_App.enums.TaskStatus;
 
 import java.util.List;
 

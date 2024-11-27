@@ -1,4 +1,4 @@
-package com.group2.To_Do_App.emums;
+package com.group2.To_Do_App.enums;
 
 public enum TaskStatus {
 

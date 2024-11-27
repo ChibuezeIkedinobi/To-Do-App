@@ -1,4 +1,4 @@
-package com.group2.To_Do_App.security.auth.authPayload;
+package com.group2.To_Do_App.security.auth.authPayload.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
+public class LoginInfo {
 
+    private String email;
     private String token;
 }

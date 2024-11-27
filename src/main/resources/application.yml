@@ -17,6 +17,20 @@ spring:
     hibernate:
       ddl-auto: create-drop
 
+  mail:
+    host: smtp.gmail.com
+    port: 25
+    username: ikdinobi@gmail.com
+    password: msxbjiznjitpsjxd
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            ssl:
+              enable: true
+
 server:
   port: 8082
 
@@ -40,6 +54,20 @@ server:
 #        format_sql: true
 #    hibernate:
 #      ddl-auto: create-drop
+#
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: ikdinobi@gmail.com
+#    password: msxbjiznjitpsjxd
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#            ssl:
+#              enable: true
 #
 #server:
 #  port: 8082
