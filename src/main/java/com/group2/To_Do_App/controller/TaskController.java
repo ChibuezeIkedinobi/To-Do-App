@@ -26,12 +26,9 @@ public class TaskController {
     }
 
     @PutMapping("/{taskId}")
-    public ResponseEntity<TaskResponseDto> editTask(
-            @PathVariable Long taskId,
-            @Valid @RequestBody TaskRequestDto taskRequestDto,
-            @RequestAttribute("userId") Long userId) {
-        TaskResponseDto updatedTask = taskService.editTask(taskId, taskRequestDto, userId);
-        return ResponseEntity.ok(updatedTask);
+    public ResponseEntity<TaskResponseDto> editTask(@PathVariable Long taskId,
+                                                    @Valid @RequestBody TaskRequestDto taskRequestDto) {
+        return ResponseEntity.ok(taskService.editTask(taskId, taskRequestDto));
     }
 
     @PatchMapping("/{taskId}/status")
