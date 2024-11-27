@@ -6,15 +6,21 @@ import com.group2.To_Do_App.emums.TaskStatus;
 import com.group2.To_Do_App.model.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tasks")
+@SQLDelete(sql = "UPDATE task SET deleted_at = NOW() WHERE id = ?")
+@Where(clause = "deleted_at IS NULL")
+@Table(name = "task")
 public class Task {
 
     @Id
@@ -26,9 +32,6 @@ public class Task {
 
     @Column(length = 500)
     private String description;
-
-    @Column(nullable = false)
-    private LocalDateTime deadline;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -44,5 +47,18 @@ public class Task {
     @ManyToOne(optional = false)
     @JoinColumn(name = "user", referencedColumnName = "id")
     private User user;
+
+    @Column(name = "created_at", updatable = false)
+    private LocalDate createdAt;
+
+    @Setter(AccessLevel.NONE)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "deleted_at")
+    private Date deletedAt;
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDate.now();
+    }
 }
 
