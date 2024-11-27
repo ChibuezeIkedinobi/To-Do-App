@@ -25,10 +25,10 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskResponseDto editTask(Long taskId, TaskRequestDto taskRequestDto) {
+    public TaskResponseDto editTask(Long id, TaskRequestDto taskRequestDto) {
 
-        Task existingTask = taskRepository.findByTaskId(taskId)
-                .orElseThrow(() -> new ResourceNotFoundException("Task", taskId));
+        Task existingTask = taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Task", id));
 
         existingTask.setTitle(taskRequestDto.getTitle());
         existingTask.setDescription(taskRequestDto.getDescription());
@@ -36,7 +36,7 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.save(existingTask);
 
         TaskResponseDto taskResponseDto = TaskResponseDto.builder()
-                .id(taskId)
+                .id(id)
                 .title(taskRequestDto.getTitle())
                 .description(taskRequestDto.getDescription())
                 .priority(existingTask.getPriority())
