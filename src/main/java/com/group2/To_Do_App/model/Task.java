@@ -1,16 +1,14 @@
 package com.group2.To_Do_App.model;
 
 
-import com.group2.To_Do_App.emums.PriorityLevel;
-import com.group2.To_Do_App.emums.TaskStatus;
-import com.group2.To_Do_App.model.User;
+import com.group2.To_Do_App.enums.PriorityLevel;
+import com.group2.To_Do_App.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data

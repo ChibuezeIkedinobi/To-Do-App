@@ -1,4 +1,4 @@
-package com.group2.To_Do_App.security.auth.authPayload;
+package com.group2.To_Do_App.security.auth.authPayload.register;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequest {
+public class RegistrationInfo {
 
+    private String firstName;
+    private String lastName;
     private String email;
-    private String password;
+    private String token;
 }
