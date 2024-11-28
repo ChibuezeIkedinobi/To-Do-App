@@ -1,6 +1,7 @@
 package com.group2.To_Do_App.service.serviceImpl;
 
 import com.group2.To_Do_App.dto.PriorityUpdateDto;
+import com.group2.To_Do_App.dto.StatusUpdateDto;
 import com.group2.To_Do_App.dto.TaskRequestDto;
 import com.group2.To_Do_App.dto.TaskResponseDto;
 import com.group2.To_Do_App.dto.payLoadResponse.Response;
@@ -13,7 +14,6 @@ import com.group2.To_Do_App.repository.TaskRepository;
 import com.group2.To_Do_App.repository.UserRepository;
 import com.group2.To_Do_App.security.utils.Util;
 import com.group2.To_Do_App.service.TaskService;
-import jakarta.annotation.Priority;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -68,28 +68,19 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskResponseDto updateTaskStatus(Long taskId, TaskStatus status) {
-        Task task = taskRepository.findById(taskId).orElseThrow(() -> new ResourceNotFoundException("Task", taskId));
-        task.setStatus(status);
-        taskRepository.save(task);
-        return toResponseDto(task);
+    public Response updateTaskStatus(Long taskId, StatusUpdateDto status) {
+        return null;
     }
 
     @Override
-    public TaskResponseDto updatePriorityLevel(Long taskId, PriorityLevel priority) {
+    public Response updatePriorityLevel(Long taskId, PriorityUpdateDto priority) {
         Task task = taskRepository.findById(taskId).orElseThrow(() -> new ResourceNotFoundException("Task", taskId));
         task.setPriority(validatePriority(priority));
-        taskRepository.save(task);
-        return toResponseDto(task);
-    }
+        Task resolvedTask = taskRepository.save(task);
 
-    private TaskResponseDto toResponseDto(Task task) {
-        return TaskResponseDto.builder()
-                .id(task.getId())
-                .title(task.getTitle())
-                .description(task.getDescription())
-                .priority(task.getPriority())
-                .status(task.getStatus())
+        return Response.builder()
+                .responseCode(Util.SUCCESS_CODE)
+                .responseMessage("The Status of the Task with ID " + resolvedTask.getId() + " have been Updated")
                 .build();
     }
 

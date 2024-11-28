@@ -1,7 +1,6 @@
 package com.group2.To_Do_App.dto;
 
-import com.group2.To_Do_App.enums.TaskStatus;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StatusUpdateDto {
 
-    @NotNull
-    private TaskStatus status;
+    @NotBlank(message = "Status should not be blank")
+    private String status;
 
 }
