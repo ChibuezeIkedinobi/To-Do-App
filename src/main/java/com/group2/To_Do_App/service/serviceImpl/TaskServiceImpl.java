@@ -1,12 +1,15 @@
 package com.group2.To_Do_App.service.serviceImpl;
 
+import com.group2.To_Do_App.dto.TaskCreationDto;
 import com.group2.To_Do_App.dto.TaskRequestDto;
 import com.group2.To_Do_App.dto.TaskResponseDto;
+import com.group2.To_Do_App.dto.payLoadResponse.Response;
 import com.group2.To_Do_App.enums.PriorityLevel;
 import com.group2.To_Do_App.enums.TaskStatus;
 import com.group2.To_Do_App.exception.customException.ResourceNotFoundException;
 import com.group2.To_Do_App.model.Task;
 import com.group2.To_Do_App.repository.TaskRepository;
+import com.group2.To_Do_App.security.utils.Util;
 import com.group2.To_Do_App.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,8 +23,21 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
 
     @Override
-    public TaskResponseDto createTask(TaskRequestDto taskRequestDto) {
-        return null;
+    public Response createTask(TaskCreationDto taskCreationDto) {
+
+
+        Task task = Task.builder()
+                .title(taskCreationDto.getTitle())
+                .description(taskCreationDto.getDescription())
+                .priority(PriorityLevel.NONE)
+                .status(TaskStatus.PENDING)
+                .build();
+        Task newTask = taskRepository.save(task);
+
+        return Response.builder()
+                .responseCode(Util.LOGIN_SUCCESS_CODE)
+                .responseMessage("Task with ID " + newTask.getId() + " have been created")
+                .build();
     }
 
     @Override
