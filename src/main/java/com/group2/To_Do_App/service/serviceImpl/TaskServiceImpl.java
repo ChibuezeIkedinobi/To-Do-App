@@ -1,5 +1,6 @@
 package com.group2.To_Do_App.service.serviceImpl;
 
+import com.group2.To_Do_App.dto.PriorityUpdateDto;
 import com.group2.To_Do_App.dto.TaskRequestDto;
 import com.group2.To_Do_App.dto.TaskResponseDto;
 import com.group2.To_Do_App.enums.PriorityLevel;
@@ -8,6 +9,7 @@ import com.group2.To_Do_App.exception.customException.ResourceNotFoundException;
 import com.group2.To_Do_App.model.Task;
 import com.group2.To_Do_App.repository.TaskRepository;
 import com.group2.To_Do_App.service.TaskService;
+import jakarta.annotation.Priority;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -48,12 +50,28 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskResponseDto updateTaskStatus(Long taskId, TaskStatus status) {
-        return null;
+        Task task = taskRepository.findById(taskId).orElseThrow(() -> new ResourceNotFoundException("Task", taskId));
+        task.setStatus(status);
+        taskRepository.save(task);
+        return toResponseDto(task);
     }
 
     @Override
     public TaskResponseDto updatePriorityLevel(Long taskId, PriorityLevel priority) {
-        return null;
+        Task task = taskRepository.findById(taskId).orElseThrow(() -> new ResourceNotFoundException("Task", taskId));
+        task.setPriority(validatePriority(priority));
+        taskRepository.save(task);
+        return toResponseDto(task);
+    }
+
+    private TaskResponseDto toResponseDto(Task task) {
+        return TaskResponseDto.builder()
+                .id(task.getId())
+                .title(task.getTitle())
+                .description(task.getDescription())
+                .priority(task.getPriority())
+                .status(task.getStatus())
+                .build();
     }
 
     @Override
@@ -65,4 +83,9 @@ public class TaskServiceImpl implements TaskService {
     public List<TaskResponseDto> getAllTasks() {
         return null;
     }
+
+    static PriorityLevel validatePriority(PriorityUpdateDto priority){
+        return PriorityLevel.getPriority(priority.getPriority());
+    }
+
 }

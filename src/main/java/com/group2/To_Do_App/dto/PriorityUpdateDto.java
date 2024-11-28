@@ -1,6 +1,7 @@
 package com.group2.To_Do_App.dto;
 
 import com.group2.To_Do_App.enums.PriorityLevel;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PriorityUpdateDto {
 
-    @NotNull
-    private PriorityLevel priority;
+    @NotBlank(message = "Priority level should not be blank")
+    private String priority;
+
 
 }
