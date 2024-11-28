@@ -18,8 +18,8 @@ public class TaskController {
     private final TaskService taskService;
 
     @PostMapping
-    public ResponseEntity<Response> createTask(@Valid @RequestBody TaskCreationDto taskCreationDto) {
-        Response createdTask = taskService.createTask(taskCreationDto);
+    public ResponseEntity<Response> createTask(@Valid @RequestBody TaskRequestDto taskRequestDto) {
+        Response createdTask = taskService.createTask(taskRequestDto);
         return ResponseEntity.ok(createdTask);
     }
 

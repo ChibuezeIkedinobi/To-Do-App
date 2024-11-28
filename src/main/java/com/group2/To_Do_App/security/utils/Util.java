@@ -9,7 +9,7 @@ public final class Util {
     public final static String ACCOUNT_CREATION_SUCCESS_CODE = "201";
     public final static String ACCOUNT_CREATION_SUCCESS_MESSAGE = "Account has been created successfully✅";
 
-    public final static String LOGIN_SUCCESS_CODE = "200";
+    public final static String SUCCESS_CODE = "200";
     public final static String LOGIN_SUCCESS_MESSAGE = "Login Successful✅";
 
     public final static String LOGIN_FAILURE_CODE = "401";

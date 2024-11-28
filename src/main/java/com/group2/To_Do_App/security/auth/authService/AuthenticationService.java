@@ -98,7 +98,7 @@ public class AuthenticationService {
 
         var jwtToken = jwtService.generateToken(user);
         return AuthorizationResponse.builder()
-                .responseCode(Util.LOGIN_SUCCESS_CODE)
+                .responseCode(Util.SUCCESS_CODE)
                 .responseMessage(Util.LOGIN_SUCCESS_MESSAGE)
                 .loginInfo(LoginInfo.builder()
                         .email(user.getEmail())
