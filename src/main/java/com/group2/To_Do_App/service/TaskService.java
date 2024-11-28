@@ -1,5 +1,7 @@
 package com.group2.To_Do_App.service;
 
+import com.group2.To_Do_App.dto.PriorityUpdateDto;
+import com.group2.To_Do_App.dto.StatusUpdateDto;
 import com.group2.To_Do_App.dto.TaskRequestDto;
 import com.group2.To_Do_App.dto.TaskResponseDto;
 import com.group2.To_Do_App.dto.payLoadResponse.Response;
@@ -12,8 +14,8 @@ public interface TaskService {
 
     Response createTask(TaskRequestDto taskRequestDto);
     TaskResponseDto editTask(Long taskId, TaskRequestDto taskRequestDto);
-    TaskResponseDto updateTaskStatus(Long taskId, TaskStatus status);
-    TaskResponseDto updatePriorityLevel(Long taskId, PriorityLevel priority);
+    Response updateTaskStatus(Long taskId, StatusUpdateDto status);
+    Response updatePriorityLevel(Long taskId, PriorityUpdateDto priority);
     void deleteTask(Long taskId);
     List<TaskResponseDto> getAllTasks();
 

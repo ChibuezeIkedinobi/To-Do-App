@@ -30,19 +30,17 @@ public class TaskController {
     }
 
     @PatchMapping("/{taskId}/status")
-    public ResponseEntity<TaskResponseDto> updateTaskStatus(
+    public ResponseEntity<Response> updateTaskStatus(
             @PathVariable Long taskId,
             @Valid @RequestBody StatusUpdateDto taskStatusUpdateDto) {
-        TaskResponseDto task = taskService.updateTaskStatus(taskId, taskStatusUpdateDto.getStatus());
-        return ResponseEntity.ok(task);
+        return ResponseEntity.ok(taskService.updateTaskStatus(taskId, taskStatusUpdateDto));
     }
 
     @PatchMapping("/{taskId}/priority")
-    public ResponseEntity<TaskResponseDto> updatePriorityLevel(
+    public ResponseEntity<Response> updatePriorityLevel(
             @PathVariable Long taskId,
             @Valid @RequestBody PriorityUpdateDto taskPriorityUpdateDto) {
-        TaskResponseDto task = taskService.updatePriorityLevel(taskId, taskPriorityUpdateDto.getPriority());
-        return ResponseEntity.ok(task);
+        return ResponseEntity.ok(taskService.updatePriorityLevel(taskId, taskPriorityUpdateDto));
     }
 
     @DeleteMapping("/{taskId}")
