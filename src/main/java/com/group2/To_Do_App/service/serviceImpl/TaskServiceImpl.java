@@ -50,8 +50,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskResponseDto editTask(Long id, TaskRequestDto taskRequestDto) {
 
-        Task existingTask = taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Task", id));
+        Task existingTask = taskAvailability(id);
 
         existingTask.setTitle(taskRequestDto.getTitle());
         existingTask.setDescription(taskRequestDto.getDescription());
@@ -69,18 +68,25 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Response updateTaskStatus(Long taskId, StatusUpdateDto status) {
-        return null;
+        Task task = taskAvailability(taskId);
+        task.setStatus(validateStatus(status));
+        Task updatedTask = taskRepository.save(task);
+
+        return Response.builder()
+                .responseCode(Util.SUCCESS_CODE)
+                .responseMessage("The Status of the Task with ID " + updatedTask.getId() + " has been Updated")
+                .build();
     }
 
     @Override
     public Response updatePriorityLevel(Long taskId, PriorityUpdateDto priority) {
-        Task task = taskRepository.findById(taskId).orElseThrow(() -> new ResourceNotFoundException("Task", taskId));
+        Task task = taskAvailability(taskId);
         task.setPriority(validatePriority(priority));
         Task resolvedTask = taskRepository.save(task);
 
         return Response.builder()
                 .responseCode(Util.SUCCESS_CODE)
-                .responseMessage("The Status of the Task with ID " + resolvedTask.getId() + " have been Updated")
+                .responseMessage("The Priority of the Task with ID " + resolvedTask.getId() + " have been Updated")
                 .build();
     }
 
@@ -98,6 +104,15 @@ public class TaskServiceImpl implements TaskService {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User", email));
+    }
+
+    private Task taskAvailability (Long id){
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Task", id));
+    }
+
+    static TaskStatus validateStatus(StatusUpdateDto status){
+        return TaskStatus.getStatus(status.getStatus());
     }
 
     static PriorityLevel validatePriority(PriorityUpdateDto priority){

@@ -30,16 +30,14 @@ public class TaskController {
     }
 
     @PatchMapping("/{taskId}/status")
-    public ResponseEntity<Response> updateTaskStatus(
-            @PathVariable Long taskId,
-            @Valid @RequestBody StatusUpdateDto taskStatusUpdateDto) {
+    public ResponseEntity<Response> updateTaskStatus(@PathVariable Long taskId,
+                                                     @Valid @RequestBody StatusUpdateDto taskStatusUpdateDto) {
         return ResponseEntity.ok(taskService.updateTaskStatus(taskId, taskStatusUpdateDto));
     }
 
     @PatchMapping("/{taskId}/priority")
-    public ResponseEntity<Response> updatePriorityLevel(
-            @PathVariable Long taskId,
-            @Valid @RequestBody PriorityUpdateDto taskPriorityUpdateDto) {
+    public ResponseEntity<Response> updatePriorityLevel(@PathVariable Long taskId,
+                                                        @Valid @RequestBody PriorityUpdateDto taskPriorityUpdateDto) {
         return ResponseEntity.ok(taskService.updatePriorityLevel(taskId, taskPriorityUpdateDto));
     }
 
