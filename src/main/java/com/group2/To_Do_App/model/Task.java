@@ -11,6 +11,8 @@ import org.hibernate.annotations.Where;
 import java.time.LocalDate;
 import java.util.Date;
 
+@Getter
+@Setter
 @Data
 @Builder
 @Entity
@@ -37,7 +39,7 @@ public class Task {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TaskStatus status;
+    private TaskStatus status; //how about the value of TaskStatus.PENDING
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user", referencedColumnName = "id")
@@ -55,5 +57,7 @@ public class Task {
     public void prePersist() {
         this.createdAt = LocalDate.now();
     }
+
+
 }
 
