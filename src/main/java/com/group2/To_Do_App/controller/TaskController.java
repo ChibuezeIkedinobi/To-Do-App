@@ -1,9 +1,7 @@
 package com.group2.To_Do_App.controller;
 
-import com.group2.To_Do_App.dto.PriorityUpdateDto;
-import com.group2.To_Do_App.dto.StatusUpdateDto;
-import com.group2.To_Do_App.dto.TaskRequestDto;
-import com.group2.To_Do_App.dto.TaskResponseDto;
+import com.group2.To_Do_App.dto.*;
+import com.group2.To_Do_App.dto.payLoadResponse.Response;
 import com.group2.To_Do_App.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +18,8 @@ public class TaskController {
     private final TaskService taskService;
 
     @PostMapping
-    public ResponseEntity<TaskResponseDto> createTask(@Valid @RequestBody TaskRequestDto taskRequestDto) {
-        TaskResponseDto createdTask = taskService.createTask(taskRequestDto);
+    public ResponseEntity<Response> createTask(@Valid @RequestBody TaskCreationDto taskCreationDto) {
+        Response createdTask = taskService.createTask(taskCreationDto);
         return ResponseEntity.ok(createdTask);
     }
 
