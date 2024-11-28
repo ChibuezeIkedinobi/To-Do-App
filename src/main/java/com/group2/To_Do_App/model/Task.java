@@ -39,9 +39,6 @@ public class Task {
     @Column(nullable = false)
     private TaskStatus status;
 
-    @Column(nullable = false)
-    private Long userId;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "user", referencedColumnName = "id")
     private User user;

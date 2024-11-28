@@ -1,6 +1,5 @@
 package com.group2.To_Do_App.service.serviceImpl;
 
-import com.group2.To_Do_App.dto.TaskCreationDto;
 import com.group2.To_Do_App.dto.TaskRequestDto;
 import com.group2.To_Do_App.dto.TaskResponseDto;
 import com.group2.To_Do_App.dto.payLoadResponse.Response;
@@ -8,10 +7,13 @@ import com.group2.To_Do_App.enums.PriorityLevel;
 import com.group2.To_Do_App.enums.TaskStatus;
 import com.group2.To_Do_App.exception.customException.ResourceNotFoundException;
 import com.group2.To_Do_App.model.Task;
+import com.group2.To_Do_App.model.User;
 import com.group2.To_Do_App.repository.TaskRepository;
+import com.group2.To_Do_App.repository.UserRepository;
 import com.group2.To_Do_App.security.utils.Util;
 import com.group2.To_Do_App.service.TaskService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,21 +23,24 @@ import java.util.List;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
 
     @Override
-    public Response createTask(TaskCreationDto taskCreationDto) {
+    public Response createTask(TaskRequestDto taskRequestDto) {
 
+        User authenticatedUser = getAuthenticatedUser();
 
         Task task = Task.builder()
-                .title(taskCreationDto.getTitle())
-                .description(taskCreationDto.getDescription())
+                .title(taskRequestDto.getTitle())
+                .description(taskRequestDto.getDescription())
                 .priority(PriorityLevel.NONE)
                 .status(TaskStatus.PENDING)
+                .user(authenticatedUser)
                 .build();
         Task newTask = taskRepository.save(task);
 
         return Response.builder()
-                .responseCode(Util.LOGIN_SUCCESS_CODE)
+                .responseCode(Util.SUCCESS_CODE)
                 .responseMessage("Task with ID " + newTask.getId() + " have been created")
                 .build();
     }
@@ -51,15 +56,13 @@ public class TaskServiceImpl implements TaskService {
 
         taskRepository.save(existingTask);
 
-        TaskResponseDto taskResponseDto = TaskResponseDto.builder()
+        return TaskResponseDto.builder()
                 .id(id)
                 .title(taskRequestDto.getTitle())
                 .description(taskRequestDto.getDescription())
                 .priority(existingTask.getPriority())
                 .status(existingTask.getStatus())
                 .build();
-
-        return taskResponseDto;
     }
 
     @Override
@@ -80,5 +83,11 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskResponseDto> getAllTasks() {
         return null;
+    }
+
+    private User getAuthenticatedUser() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User", email));
     }
 }
