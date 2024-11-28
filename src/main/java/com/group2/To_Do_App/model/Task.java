@@ -41,9 +41,6 @@ public class Task {
     @Column(nullable = false)
     private TaskStatus status; //how about the value of TaskStatus.PENDING
 
-    @Column(nullable = false)
-    private Long userId;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "user", referencedColumnName = "id")
     private User user;
