@@ -16,7 +16,7 @@ public interface TaskService {
     TaskResponseDto editTask(Long taskId, TaskRequestDto taskRequestDto);
     Response updateTaskStatus(Long taskId, StatusUpdateDto status);
     Response updatePriorityLevel(Long taskId, PriorityUpdateDto priority);
-    void deleteTask(Long taskId);
-    List<TaskResponseDto> getAllTasks();
+    Response deleteTask(Long taskId);
+    List<TaskResponseDto> getAllTasks(String status, String priority);
 
 }
