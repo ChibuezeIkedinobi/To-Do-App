@@ -19,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -91,13 +92,43 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void deleteTask(Long taskId) {
+    public Response deleteTask(Long taskId) {
+        Task task = taskAvailability(taskId);
+        if (task != null){
+            taskRepository.delete(task);
+            return new Response(Util.SUCCESS_CODE,"Task deleted successfully");
+        } else {
+            return new Response(Util.NOT_FOUND,"Task not found");
+        }
 
     }
 
     @Override
-    public List<TaskResponseDto> getAllTasks() {
-        return null;
+    public List<TaskResponseDto> getAllTasks(String status, String priority) {
+        TaskStatus taskStatus = (status != null) ? TaskStatus.getStatus(status) : null;
+        PriorityLevel priorityLevel = (priority != null) ? PriorityLevel.getPriority(priority) : null;
+
+        List<Task> allTask = taskRepository.findAll();
+        if (taskStatus != null){
+            allTask = allTask.stream()
+                    .filter(task -> task.getStatus().equals(taskStatus))
+                    .toList();
+        }
+        if (priorityLevel != null){
+            allTask = allTask.stream()
+                    .filter(task -> task.getPriority().equals(priorityLevel))
+                    .toList();
+        }
+
+        return allTask.stream()
+                .map(task -> TaskResponseDto.builder()
+                        .id(task.getId())
+                        .title(task.getTitle())
+                        .description(task.getDescription())
+                        .priority(task.getPriority())
+                        .status(task.getStatus())
+                        .build())
+                .toList();
     }
 
     private User getAuthenticatedUser() {

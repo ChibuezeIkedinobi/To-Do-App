@@ -18,6 +18,8 @@ public final class Util {
     public static final String LOGOUT_SUCCESS_CODE = "200";
     public static final String LOGOUT_SUCCESS_MESSAGE = "Logout successful.";
 
+    public static final String NOT_FOUND = "404";
+
     public static final String AUTHORIZATION = "Authorization";
     public static final String BEARER = "Bearer ";     //Don't ignore the space after the word bearer
     public static final String SECRET_KEY = "MIHcAgEBBEIAi9oBwuqEzYFdh8ly8oWdsgFOsYjv+4PQUG29kXAHeFwhD4R1JGwzM2sIQ1TIV0CzvkLvKlz+ApmoklnmCst1teKgBwYFK4EEACOhgYkDgYYABABLnZ8o4KVkAfAHmOZ3AQStgqajw4kL3LoL1Njs2d2ACPIvJ157uOFj92K5QaPHJiSnesVqLscpm0yBFip75vW6tAHVSkwpuebXatT840+0WvFni0xnzONuP+gbgp0iXFEYlTcvk/+DvLebrBuwHGRCWj2Oasawz3NbGDFh+rYtArSP7A==";

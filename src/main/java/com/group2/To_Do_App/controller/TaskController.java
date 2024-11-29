@@ -42,14 +42,14 @@ public class TaskController {
     }
 
     @DeleteMapping("/{taskId}")
-    public ResponseEntity<String> deleteTask(@PathVariable Long taskId) {
-        taskService.deleteTask(taskId);
-        return ResponseEntity.ok("Task deleted successfully.");
+    public ResponseEntity<Response> deleteTask(@PathVariable Long taskId) {
+        return ResponseEntity.ok(taskService.deleteTask(taskId));
     }
 
     @GetMapping
-    public ResponseEntity<List<TaskResponseDto>> getAllTasks() {
-        List<TaskResponseDto> tasks = taskService.getAllTasks();
+    public ResponseEntity<List<TaskResponseDto>> getAllTasks(@RequestParam(required = false) String status,
+                                                             @RequestParam(required = false) String priority) {
+        List<TaskResponseDto> tasks = taskService.getAllTasks(status, priority);
         return ResponseEntity.ok(tasks);
     }
 }
