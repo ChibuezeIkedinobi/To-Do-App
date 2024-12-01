@@ -43,6 +43,7 @@ public class Task {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user", referencedColumnName = "id")
+    @ToString.Exclude
     private User user;
 
     @Column(name = "created_at", updatable = false)

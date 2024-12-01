@@ -3,6 +3,7 @@ package com.group2.To_Do_App.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.group2.To_Do_App.enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -29,14 +30,24 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    @NotBlank(message = "First name cannot be null or blank")
     private String firstName;
 
+    @Column(nullable = false)
+    @NotBlank(message = "Last name cannot be null or blank")
     private String lastName;
 
+    @Column(nullable = false)
+    @NotBlank(message = "Email cannot be null or blank")
     private String email;
 
+    @Column(nullable = false)
+    @NotBlank(message = "Password cannot be null or blank")
     private String password;
 
+    @Column(nullable = false)
+    @NotBlank(message = "Phone number cannot be null or blank")
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
@@ -57,6 +68,7 @@ public class User implements UserDetails {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<Task> allTasks;
 
     @Override
