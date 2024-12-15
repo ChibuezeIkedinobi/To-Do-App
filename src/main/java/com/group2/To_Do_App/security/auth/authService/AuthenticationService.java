@@ -66,7 +66,7 @@ public class AuthenticationService {
         EmailDetails emailDetails = EmailDetails.builder()
                 .recipient(saveNewUser.getEmail())
                 .subject("ACCOUNT CREATED✅✅✅✅")
-                .messageBody("CONGRATULATIONS!!! Your account has been successfully created💥💥\n TOKEN: "+ jwtToken)
+                .messageBody("CONGRATULATIONS!!! Your account has been successfully created💥💥")
                 .build();
         emailService.sendEmailAlert(emailDetails);
 

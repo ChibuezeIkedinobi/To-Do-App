@@ -4,6 +4,14 @@
 The **To_Do_App API** provides a simple and efficient way to manage tasks, including creating, updating, deleting, and filtering tasks by status and priority. This API also supports user authentication with features for user registration, login, and logout.
 
 ---
+---
+## Team: 
+### Ikedinobi, Simon, Ndamzi, Chukwuemeka, Immanuel, Wisdom
+
+
+
+---
+---
 
 ## Table of Contents
 - [API Endpoints](#api-endpoints)
